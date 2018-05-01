@@ -29,7 +29,7 @@ using namespace std;
 //											//		outside of every node's subtree, which would be the max between the 
 //											//		answer of your parent subtree + 1 and the answer of your parent's 
 //											//		outside answer + 1.
-//											//		Note: check the case when you are your parent's subtree answer.
+//											//		Note: Check the case when you are your parent's subtree answer.
 
 //======================================================================================================================
 
