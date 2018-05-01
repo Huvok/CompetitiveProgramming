@@ -23,7 +23,15 @@
 using namespace std;
 
 //															//AUTHOR: Hugo Garcia
-//															//PURPOSE: Competitive programming template
+//															//IDEA: Get the amount of nodes in a tree that are at most
+//															//		d of distance from each of the marked nodes. First,
+//															//		calculate the farthest marked node in every node's
+//															//		subtree, then calculate the same but for outside
+//															//		of every node's subtree, which would be the max
+//															//		between the answer of your parent subtree + 1 and
+//															//		the answer of your parent's outside answer + 1.
+//															//		Note: check the case when you are your parent's
+//															//		subtree answer.
 
 //======================================================================================================================
 
