@@ -23,8 +23,18 @@
 using namespace std;
 
 //                                          //AUTHOR: Hugo Garcia
-//                                          //IDEA: Use IDA* with the heuristic of the distance to the answer in terms
-//                                          //      of 8 - amount of #, answer is the best from 1, 2 or 3.
+//                                          //IDEA: One way to solve this is to make a BFS and stop as soon as you get
+//                                          //      to a state where the penalty (amount of numbers you do not want
+//                                          //      in the center) is zero, but it will TLE/MLE soon because of the
+//                                          //      amount of states, so we can solve it using IDA*, which is a DFS
+//                                          //      that does not exceeds a certain depth and this depth is increasing
+//                                          //      gradually until a solution is found. For this we need a heuristic
+//                                          //      which can be the penalty mentioned above: 8 - max(# correct 1's,
+//                                          //      # correct 2's, # correctt 3's). The penalty also represents that 
+//                                          //      you need AT LEAST that amount of extra depth (or moves) to get to
+//                                          //      your goal, so you can increase the depth threshold by that amount
+//                                          //      in every iteration. Movement simulation through states can be
+//                                          //      brute forced.
 
 //======================================================================================================================
 
