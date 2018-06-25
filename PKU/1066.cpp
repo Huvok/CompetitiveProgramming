@@ -287,127 +287,135 @@ int main()
 {
 	sync;
 
-	ll n;
-	cin >> n;
-	ll x1, x2, y1, y2;
-	double x, y;
-	vector<Point<double>> up, down, left, right;
-	vector<Line<double>> segments;
-	FOR(i, 0, n)
+	ll t;
+	cin >> t;
+	while (t--)
 	{
-		cin >> x1 >> y1 >> x2 >> y2;
-		Point<double> a(x1, y1), b(x2, y2);
-		segments.pb(Line<double>(a, b));
-		if (x1 == 0)
-			left.pb(a);
-		else if (x1 == 100)
-			right.pb(a);
-		else if (y1 == 0)
-			down.pb(a);
-		else
-			up.pb(a);
-
-		if (x2 == 0)
-			left.pb(b);
-		else if (x2 == 100)
-			right.pb(b);
-		else if (y2 == 0)
-			down.pb(b);
-		else
-			up.pb(b);
-	}
-
-	cin >> x >> y;
-	Point<double> d(x, y);
-
-	ll ans = 1e9;
-	up.pb(Point<double>(0, 100));
-	up.pb(Point<double>(100, 100));
-	down.pb(Point<double>(0, 0));
-	down.pb(Point<double>(100, 0));
-	left.pb(Point<double>(0, 0));
-	left.pb(Point<double>(0, 100));
-	right.pb(Point<double>(100, 0));
-	right.pb(Point<double>(100, 100));
-
-	sort(all(up));
-	sort(all(down));
-	sort(all(left));
-	sort(all(right));
-
-	FOR(i, 0, sz(up) - 1)
-	{
-		Point<double> s((up[i].x + up[i + 1].x) / 2, (up[i].y + up[i + 1].y) / 2);
-		Line<double> ln(s, d);
-
-		ll cnt = 1;
-		FOR(j, 0, sz(segments))
+		ll n;
+		cin >> n;
+		ll x1, x2, y1, y2;
+		double x, y;
+		vector<Point<double>> up, down, left, right;
+		vector<Line<double>> segments;
+		FOR(i, 0, n)
 		{
-			Line<double> h(d, s);
-			if (intersectSegments(ln, segments[j], h))
-			{
-				cnt++;
-			}
+			cin >> x1 >> y1 >> x2 >> y2;
+			Point<double> a(x1, y1), b(x2, y2);
+			segments.pb(Line<double>(a, b));
+			if (x1 == 0)
+				left.pb(a);
+			else if (x1 == 100)
+				right.pb(a);
+			else if (y1 == 0)
+				down.pb(a);
+			else
+				up.pb(a);
+
+			if (x2 == 0)
+				left.pb(b);
+			else if (x2 == 100)
+				right.pb(b);
+			else if (y2 == 0)
+				down.pb(b);
+			else
+				up.pb(b);
 		}
 
-		ans = min(ans, cnt);
-	}
+		cin >> x >> y;
+		Point<double> d(x, y);
 
-	FOR(i, 0, sz(down) - 1)
-	{
-		Point<double> s((down[i].x + down[i + 1].x) / 2, (down[i].y + down[i + 1].y) / 2);
-		Line<double> ln(s, d);
+		ll ans = 1e9;
+		up.pb(Point<double>(0, 100));
+		up.pb(Point<double>(100, 100));
+		down.pb(Point<double>(0, 0));
+		down.pb(Point<double>(100, 0));
+		left.pb(Point<double>(0, 0));
+		left.pb(Point<double>(0, 100));
+		right.pb(Point<double>(100, 0));
+		right.pb(Point<double>(100, 100));
 
-		ll cnt = 1;
-		FOR(j, 0, sz(segments))
+		sort(all(up));
+		sort(all(down));
+		sort(all(left));
+		sort(all(right));
+
+		FOR(i, 0, sz(up) - 1)
 		{
-			Line<double> h(d, s);
-			if (intersectSegments(ln, segments[j], h))
+			Point<double> s((up[i].x + up[i + 1].x) / 2, (up[i].y + up[i + 1].y) / 2);
+			Line<double> ln(s, d);
+
+			ll cnt = 1;
+			FOR(j, 0, sz(segments))
 			{
-				cnt++;
+				Line<double> h(d, s);
+				if (intersectSegments(ln, segments[j], h))
+				{
+					cnt++;
+				}
 			}
+
+			ans = min(ans, cnt);
 		}
 
-		ans = min(ans, cnt);
-	}
-
-	FOR(i, 0, sz(left) - 1)
-	{
-		Point<double> s((left[i].x + left[i + 1].x) / 2, (left[i].y + left[i + 1].y) / 2);
-		Line<double> ln(s, d);
-
-		ll cnt = 1;
-		FOR(j, 0, sz(segments))
+		FOR(i, 0, sz(down) - 1)
 		{
-			Line<double> h(d, s);
-			if (intersectSegments(ln, segments[j], h))
+			Point<double> s((down[i].x + down[i + 1].x) / 2, (down[i].y + down[i + 1].y) / 2);
+			Line<double> ln(s, d);
+
+			ll cnt = 1;
+			FOR(j, 0, sz(segments))
 			{
-				cnt++;
+				Line<double> h(d, s);
+				if (intersectSegments(ln, segments[j], h))
+				{
+					cnt++;
+				}
 			}
+
+			ans = min(ans, cnt);
 		}
 
-		ans = min(ans, cnt);
-	}
-
-	FOR(i, 0, sz(right) - 1)
-	{
-		Point<double> s((right[i].x + right[i + 1].x) / 2, (right[i].y + right[i + 1].y) / 2);
-		Line<double> ln(s, d);
-
-		ll cnt = 1;
-		FOR(j, 0, sz(segments))
+		FOR(i, 0, sz(left) - 1)
 		{
-			Line<double> h(d, s);
-			if (intersectSegments(ln, segments[j], h))
+			Point<double> s((left[i].x + left[i + 1].x) / 2, (left[i].y + left[i + 1].y) / 2);
+			Line<double> ln(s, d);
+
+			ll cnt = 1;
+			FOR(j, 0, sz(segments))
 			{
-				cnt++;
+				Line<double> h(d, s);
+				if (intersectSegments(ln, segments[j], h))
+				{
+					cnt++;
+				}
 			}
+
+			ans = min(ans, cnt);
 		}
 
-		ans = min(ans, cnt);
-	}
+		FOR(i, 0, sz(right) - 1)
+		{
+			Point<double> s((right[i].x + right[i + 1].x) / 2, (right[i].y + right[i + 1].y) / 2);
+			Line<double> ln(s, d);
 
-	cout << "Number of doors = " << ans << endl;
+			ll cnt = 1;
+			FOR(j, 0, sz(segments))
+			{
+				Line<double> h(d, s);
+				if (intersectSegments(ln, segments[j], h))
+				{
+					cnt++;
+				}
+			}
+
+			ans = min(ans, cnt);
+		}
+
+		cout << "Number of doors = " << ans << endl;
+
+		if (t)
+			cout << endl;
+	}
 
 	return 0;
 }
