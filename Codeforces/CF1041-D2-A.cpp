@@ -7,9 +7,6 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //                                                          // AUTHOR: Hugo Garcia
-// Maintain a stack of speed signs and a counter for the no overtaken allowed. If a new speed
-// arrives, pop all that is below it. If a overtaken comes, add the counter to the answer and set it
-// to zero.
 
 #define FOR(i, a, b) for(ll i=ll(a); i<ll(b); i++)
 #define ROF(i, a, b) for(ll i=ll(a); i>=ll(b); i--)
@@ -35,9 +32,10 @@ typedef pair<ii, ll> iii;
 typedef vector<ii> vii;
 typedef vector<pair<ii, ll>> viii;
 
-#define MOD 998244353
+#define MOD 1000000007
 
-//----------------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------------- 
+ll a[1005];
 
 //----------------------------------------------------------------------------------------------------------------------
 int main() {
@@ -45,46 +43,19 @@ int main() {
 
 	ll n;
 	cin >> n;
-	ll ans = 0;
-	stack<ll> s;
-	ll overtake = 0;
-	ll speed = 0;
 	FOR(i, 0, n) {
-		ll t;
-		cin >> t;
-		if (t == 1) {
-			cin >> speed;
-			while (!s.empty() && 
-				speed > s.top()) {
-				ans++;
-				s.pop();
-			}
-		} 
-		else if (t == 2) {
-			ans += overtake;
-			overtake = 0;
-		}
-		else if (t == 3) {
-			ll x;
-			cin  >> x;
-			if (x >= speed)
-				s.push(x);
-			else
-				ans++;
-		}
-		else if (t == 4) {
-			overtake = 0;
-		}
-		else if (t == 5) {
-			while (!s.empty())
-				s.pop();
-		}
-		else {
-			overtake++;
-		}
+		cin >> a[i];
+	}	
+
+	sort(a, a + n);
+	ll ans = 0;
+	FOR(i, 1, n) {
+		if (a[i] != a[i - 1] + 1)
+			ans += a[i] - a[i - 1] - 1;
 	}
 
 	cout << ans << endl;
+
 
 	return 0;
 }
